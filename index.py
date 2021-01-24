@@ -46,12 +46,14 @@ def recommen():
             if res != 0:
                 temp[word] = wordCount/res
         tf.append(temp)
+    print(pd.DataFrame(data=tf))
     print('loading...')
     for key in idf:
         if idf[key] > 0:
             idf[key] = math.log(N/idf[key])
         else:
             idf[key] = math.log(N/1)
+    print(idf)        
     ifMultiIdf = []
     for tfLine in tf:
         temp = {}
@@ -68,7 +70,9 @@ def recommen():
                 total += row[key]
         row['total']=total
     ascDataFrameSimilarity = pd.DataFrame(data=ifMultiIdf).sort_values(by='total', ascending=False)
+    print(pd.DataFrame(data=ifMultiIdf))
     Recommender =  data.merge(ascDataFrameSimilarity[['id','total']], on="id").sort_values(by='total', ascending=False)[:20]
+    print(Recommender)
     parsed = json.loads(Recommender.to_json(orient="table"))
     data = json.dumps(parsed, indent=4)
     return data
