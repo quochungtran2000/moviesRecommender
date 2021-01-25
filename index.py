@@ -29,7 +29,7 @@ def recommen():
     # lấy overview
     key = request.get_json()["key"]
     keywords = [word.lower() for word in key.split()] ; key.split()
-    data = df[['runtime','vote_count','tagline','title','id','overview']].sort_values(by=['vote_count'], ascending=False)
+    data = df[['runtime','vote_count','tagline','title','vote_average','id','overview']].sort_values(by=['vote_count'], ascending=False)
     #đếm tổng số dòng
     N = len(data)
     tf = []
